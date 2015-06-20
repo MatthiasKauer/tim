@@ -1,0 +1,4 @@
+(B) 2015-06-20 Make tests work
+(B) 2015-06-20 Simplify code further (delele unneeded)
+(C) 2015-06-20 Add conda environment for Windows development
+(C) 2015-06-20 Make installing easy
