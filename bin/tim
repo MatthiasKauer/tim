@@ -30,6 +30,7 @@ Options:
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import pytz
 import json, yaml
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -103,7 +104,7 @@ def action_on(name, time):
     work.append(entry)
     store.dump(data)
 
-    print('Start working on ' + green(name) + '.')
+    print('Start working on ' + green(name) + ' at ' + time + '.')
 
 
 def action_fin(time, back_from_interrupt=True):
@@ -291,16 +292,15 @@ def ensure_working():
 
 
 def to_datetime(timestr):
-    dt = parse_engtime(timestr).replace(microsecond=0).isoformat()
+    dt = parse_engtime(timestr).isoformat()
     #  dt_short = dt.replace(microsecond=0)
     #  print("dt_short", dt_short)
     return dt
 
 
 def parse_engtime(timestr):
-
-    now = datetime.utcnow()
-    print("now", now)
+    now = datetime.utcnow().replace(microsecond=0).replace(tzinfo=pytz.utc)
+    print("now", now, now.tzinfo)
     if not timestr or timestr.strip() == 'now':
         return now
 
@@ -326,7 +326,7 @@ def parse_engtime(timestr):
 
 
 def parse_isotime(isotime):
-    return datetime.strptime(isotime, '%Y-%m-%dT%H:%M:%S')
+    return datetime.strptime(isotime, '%Y-%m-%dT%H:%M:%S+%z')
 
 
 def timegap(start_time, end_time):
