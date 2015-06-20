@@ -5,7 +5,19 @@ Biggest changes:
 
 * interrupts are gone because the stack is complex; you can call switch if you want to start work on something else. If you enter finish, nothing is automatically started.
 * hl command hands over your data to hledger to perform aggregations. [hledger manual](http://hledger.org/manual.html#timelog)
-* tim log is gone; replaced by hl
+* I'm not sure which program the test cases belong to. Please let me know, so I can amend them and test accordingly.
+* note is gone. 
+* tag is gone (for now)
+* edit is deactivated till I figure out what it does
+
+This leaves the following commands intact:
+
+* on
+* fin
+* log
+* status
+* help
+
 
 # ti &mdash; A silly simple time tracker
 
