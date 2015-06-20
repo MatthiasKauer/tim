@@ -30,7 +30,7 @@ Options:
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import pytz
+#  import pytz
 import json, yaml
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -292,14 +292,12 @@ def ensure_working():
 
 
 def to_datetime(timestr):
-    dt = parse_engtime(timestr).isoformat()
-    #  dt_short = dt.replace(microsecond=0)
-    #  print("dt_short", dt_short)
+    #Z denotes zulu for UTC (https://tools.ietf.org/html/rfc3339#section-2)
+    dt = parse_engtime(timestr).isoformat() + "Z" 
     return dt
 
-
 def parse_engtime(timestr):
-    now = datetime.utcnow().replace(microsecond=0).replace(tzinfo=pytz.utc)
+    now = datetime.utcnow().replace(microsecond=0)
     print("now", now, now.tzinfo)
     if not timestr or timestr.strip() == 'now':
         return now
@@ -326,7 +324,7 @@ def parse_engtime(timestr):
 
 
 def parse_isotime(isotime):
-    return datetime.strptime(isotime, '%Y-%m-%dT%H:%M:%S+%z')
+    return datetime.strptime(isotime, '%Y-%m-%dT%H:%M:%SZ')
 
 
 def timegap(start_time, end_time):
