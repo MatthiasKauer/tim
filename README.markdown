@@ -1,5 +1,5 @@
 #tim amendments
-tim tries to simplify ti by relying on [hledger](http://hledger.org/) (which must be on your path) for number crunching.
+tim tries to simplify [ti](https://github.com/sharat87/ti) by relying on [hledger](http://hledger.org/) (which must be on your path) for number crunching.
 
 Biggest changes:
 
