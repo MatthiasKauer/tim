@@ -212,7 +212,7 @@ def action_hledger(param):
 
             hlfile.write(str_on + "\n")
             hlfile.write(str_off + "\n")
-            hlfile.write("\n")
+            #  hlfile.write("\n")
 
     hlfile.close()
 

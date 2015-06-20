@@ -3,6 +3,7 @@ tim tries to simplify ti by relying on hledger for number crunching in backgroun
 
 Biggest changes:
 
+* hledger omits tasks that are too short. 4min, rounded up to 0.1 h seems to be the cut-off.
 * interrupts are gone because the stack is complex; you can call switch if you want to start work on something else. If you enter finish, nothing is automatically started.
 * hl command hands over your data to hledger to perform aggregations. [hledger manual](http://hledger.org/manual.html#timelog)
 * I'm not sure which program the test cases belong to. Please let me know, so I can amend them and test accordingly.
