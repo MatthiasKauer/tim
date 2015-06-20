@@ -193,6 +193,9 @@ def action_status():
     print('You have been working on {0} for {1}.'
             .format(green(current['name']), diff))
 
+def action_hledger(param):
+    print(param)
+
 def action_log(period):
     data = store.load()
     work = data['work'] + data['interrupt_stack']
@@ -365,9 +368,9 @@ def parse_args(argv=sys.argv):
     if head in ['-h', '--help', 'h', 'help']:
         helpful_exit()
 
-    elif head in ['e', 'edit']:
-        fn = action_edit
-        args = {}
+    #  elif head in ['e', 'edit']:
+    #      fn = action_edit
+    #      args = {}
 
     elif head in ['o', 'on']:
         if not tail:
@@ -391,30 +394,34 @@ def parse_args(argv=sys.argv):
         fn = action_log
         args = {'period': tail[0] if tail else None}
 
-    elif head in ['t', 'tag']:
-        if not tail:
-            helpful_exit('Please provide at least one tag to add.')
+    elif head in ['hl', 'hledger']:
+        fn = action_hledger
+        args = {'param': tail}
 
-        fn = action_tag
-        args = {'tags': tail}
+    #  elif head in ['t', 'tag']:
+    #      if not tail:
+    #          helpful_exit('Please provide at least one tag to add.')
+#  
+    #      fn = action_tag
+    #      args = {'tags': tail}
 
-    elif head in ['n', 'note']:
-        if not tail:
-            helpful_exit('Please provide some text to be noted.')
+    #  elif head in ['n', 'note']:
+    #      if not tail:
+    #          helpful_exit('Please provide some text to be noted.')
+#  
+    #      fn = action_note
+    #      args = {'content': ' '.join(tail)}
 
-        fn = action_note
-        args = {'content': ' '.join(tail)}
-
-    elif head in ['i', 'interrupt']:
-        if not tail:
-            helpful_exit('Need the name of whatever you are working on.')
-
-        fn = action_interrupt
-        args = {
-            'name': tail[0],
-            'time': to_datetime(' '.join(tail[1:])),
-        }
-
+    #  elif head in ['i', 'interrupt']:
+    #      if not tail:
+    #          helpful_exit('Need the name of whatever you are working on.')
+#  
+    #      fn = action_interrupt
+    #      args = {
+    #          'name': tail[0],
+    #          'time': to_datetime(' '.join(tail[1:])),
+    #      }
+#  
     else:
         helpful_exit("I don't understand '" + head + "'")
 
