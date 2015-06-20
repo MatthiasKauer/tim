@@ -194,7 +194,15 @@ def action_status():
             .format(green(current['name']), diff))
 
 def action_hledger(param):
-    print(param)
+    print("hledger param", param)
+    data = store.load()
+    work = data['work']
+    for item in work:
+        if 'end' in item:
+            str_on = "i %s %s" % (parse_isotime(item['start']), item['name'])
+            str_off = "o %s" % (parse_isotime(item['end']))
+            print(str_on + "\n" + str_off)
+
 
 def action_log(period):
     data = store.load()
@@ -434,7 +442,7 @@ def main():
 
 
 store = JsonStore(os.getenv('SHEET_FILE', None) or
-                    os.path.expanduser('~/.ti-sheet'))
+                    os.path.expanduser('~/.tim-sheet'))
 
 if __name__ == '__main__':
     use_color = True
