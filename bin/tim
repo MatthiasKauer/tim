@@ -38,6 +38,8 @@ import re
 import os, subprocess, tempfile
 from os import path
 import sys
+import subprocess
+#  import shlex #may not be there on Windows
 
 from colorama import *
 
@@ -198,12 +200,34 @@ def action_hledger(param):
     print("hledger param", param)
     data = store.load()
     work = data['work']
+
+    hlfname = os.path.expanduser('~/.tim.hledger')
+    hlfile = open(hlfname, 'w')
+
     for item in work:
         if 'end' in item:
             str_on = "i %s %s" % (parse_isotime(item['start']), item['name'])
             str_off = "o %s" % (parse_isotime(item['end']))
             print(str_on + "\n" + str_off)
 
+            hlfile.write(str_on + "\n")
+            hlfile.write(str_off + "\n")
+            hlfile.write("\n")
+
+    hlfile.close()
+
+    #  split_param = shlex.split(param)
+    #  print("split_param", split_param)
+
+    #  cmd_str = "hledger" + param
+    #  print("cmd_str", cmd_str)
+    #  subprocess.call(cmd_str, shell=True)
+
+    cmd_list = ['hledger'] + ['-f'] + [hlfname] + param
+    print("Executing: " + " ".join(cmd_list))
+    #  subprocess.call(['ls', '-l'])
+    #  subprocess.call(cmd_list, shell=True)
+    subprocess.call(cmd_list) 
 
 def action_log(period):
     data = store.load()
