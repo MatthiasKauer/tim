@@ -1,5 +1,5 @@
 #tim amendments
-tim tries to simplify ti by relying on hledger for number crunching in background.
+tim tries to simplify ti by relying on [hledger](http://hledger.org/) (which must be on your path) for number crunching.
 
 Biggest changes:
 
