@@ -32,7 +32,7 @@ from __future__ import unicode_literals
 
 #  import pytz
 import json, yaml
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from collections import defaultdict
 import re
 import os, subprocess, tempfile
@@ -431,6 +431,18 @@ def parse_args(argv=sys.argv):
     elif head in ['hl', 'hledger']:
         fn = action_hledger
         args = {'param': tail}
+
+    elif head in ['hl1']:
+        fn = action_hledger
+        args = {'param': ['balance', '--daily','--begin', 'today']}
+    
+    elif head in ['hl2']:
+        fn = action_hledger
+        args = {'param': ['balance', '--daily','--begin', 'this week']}
+
+    elif head in ['hl3']:
+        fn = action_hledger
+        args = {'param': ['balance', '--weekly','--begin', 'this month']}
 
     #  elif head in ['t', 'tag']:
     #      if not tail:
