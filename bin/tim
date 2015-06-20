@@ -291,12 +291,16 @@ def ensure_working():
 
 
 def to_datetime(timestr):
-    return parse_engtime(timestr).isoformat() + 'Z'
+    dt = parse_engtime(timestr).replace(microsecond=0).isoformat()
+    #  dt_short = dt.replace(microsecond=0)
+    #  print("dt_short", dt_short)
+    return dt
 
 
 def parse_engtime(timestr):
 
     now = datetime.utcnow()
+    print("now", now)
     if not timestr or timestr.strip() == 'now':
         return now
 
@@ -322,7 +326,7 @@ def parse_engtime(timestr):
 
 
 def parse_isotime(isotime):
-    return datetime.strptime(isotime, '%Y-%m-%dT%H:%M:%S.%fZ')
+    return datetime.strptime(isotime, '%Y-%m-%dT%H:%M:%S')
 
 
 def timegap(start_time, end_time):
