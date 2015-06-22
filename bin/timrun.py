@@ -11,5 +11,5 @@ try:
 except ImportError:
     sys.exit(-1)
 
-from croncoat.scripts.ccscript import main
+from tim.timscript import main
 main()

@@ -481,7 +481,7 @@ def main():
 
 store = JsonStore(os.getenv('SHEET_FILE', None) or
                     os.path.expanduser('~/.tim-sheet'))
+use_color = True
 
 if __name__ == '__main__':
-    use_color = True
     main()
