@@ -89,6 +89,10 @@ def blue(str):
         return str
 
 
+def action_switch(name, time):
+    action_fin(time)
+    action_on(name, time)
+
 def action_on(name, time):
     data = store.load()
     work = data['work']
@@ -411,6 +415,16 @@ def parse_args(argv=sys.argv):
             helpful_exit('Need the name of whatever you are working on.')
 
         fn = action_on
+        args = {
+            'name': tail[0],
+            'time': to_datetime(' '.join(tail[1:])),
+        }
+
+    elif head in ['sw', 'switch']:
+        if not tail:
+            helpful_exit('Need the name of whatever you are working on.')
+
+        fn = action_switch
         args = {
             'name': tail[0],
             'time': to_datetime(' '.join(tail[1:])),
