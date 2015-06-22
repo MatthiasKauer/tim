@@ -434,7 +434,7 @@ def parse_args(argv=sys.argv):
         fn = action_fin
         args = {'time': to_datetime(' '.join(tail))}
 
-    elif head in ['s', 'status']:
+    elif head in ['st', 'status']:
         fn = action_status
         args = {}
 
