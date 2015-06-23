@@ -1,5 +1,4 @@
-(A) 2015-06-22 Add config option for alternative usage folder (want to share over seafile)
-(B) 2015-06-23 remove fuzzy output (or make crisper; I hate seeing about an hour all the time in status)
+(B) 2015-06-23 specify working dir instead of sheetname => move hledger output over as well
 (B) 2015-06-20 Make tests work
 (B) 2015-06-20 Adjust usage help
 (B) 2015-06-20 Simplify code further (delele unneeded)
@@ -9,4 +8,6 @@
 (C) 2015-06-20 Add conda environment for Windows development (test whether it is usable with fresh environment)
 (D) 2015-06-20 Publish to pypi 
 (D) 2015-06-20 Publish on web site
+x (A) 2015-06-22 Add config option for alternative usage folder (want to share over seafile) [can now move sheet to whereever]
+x (B) 2015-06-23 remove fuzzy output (or make crisper; I hate seeing about an hour all the time in status)
 x (C) 2015-06-20 Make installing easy [setup.py works on Windows]

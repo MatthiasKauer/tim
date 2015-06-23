@@ -40,14 +40,29 @@ from os import path
 import sys
 import subprocess
 import math
+import ConfigParser
 #  import shlex #may not be there on Windows
 
 from colorama import *
 
 class JsonStore(object):
 
-    def __init__(self, filename):
-        self.filename = filename
+    def __init__(self):
+        cfg_fname = os.path.expanduser('~/.tim.ini')
+        self.cfg = ConfigParser.SafeConfigParser() #defaults={'tim':{'sheet_fname':os.path.expanduser('~/.tim-sheet')}})
+
+        self.cfg.add_section('tim')
+        self.cfg.set('tim', 'sheet_fname', os.path.expanduser('~/.tim-sheet'))
+        self.cfg.read(cfg_fname)  #no error if not found
+        self.filename = os.path.abspath(self.cfg.get('tim','sheet_fname'))
+        print(self.filename)
+        # if(os.path.exists(cfg_fname)):
+
+        # print(self.cfg.get('tim','sheet_fname'))
+        # os.getenv('SHEET_FILE', None)
+        # 
+
+        # self.filename = filename
 
     def load(self):
 
@@ -366,7 +381,7 @@ def timegap(start_time, end_time):
     if mins == 0:
         return 'less than a minute'
     elif mins < 59:
-        return '{} minutes'.format(mins)
+        return '%d minutes' % (mins)
     elif mins < 1439:
         return '%d hours and %d minutes' % (hours, rem_mins)
     else:
@@ -492,8 +507,7 @@ def main():
     fn(**args)
 
 
-store = JsonStore(os.getenv('SHEET_FILE', None) or
-                    os.path.expanduser('~/.tim-sheet'))
+store = JsonStore()
 use_color = True
 
 if __name__ == '__main__':
