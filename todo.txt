@@ -1,4 +1,4 @@
-(A) 2015-06-23 make ini writing easy
+(A) 2015-06-23 make ini writing and checking (output current config?) easy
 (A) 2015-06-23 specify working dir instead of sheetname => move hledger output over as well
 (B) 2015-06-20 Make tests work
 (B) 2015-06-20 Adjust usage help
