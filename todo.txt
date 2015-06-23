@@ -1,4 +1,5 @@
-(B) 2015-06-23 specify working dir instead of sheetname => move hledger output over as well
+(A) 2015-06-23 make ini writing easy
+(A) 2015-06-23 specify working dir instead of sheetname => move hledger output over as well
 (B) 2015-06-20 Make tests work
 (B) 2015-06-20 Adjust usage help
 (B) 2015-06-20 Simplify code further (delele unneeded)
