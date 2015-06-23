@@ -39,6 +39,7 @@ import os, subprocess, tempfile
 from os import path
 import sys
 import subprocess
+import math
 #  import shlex #may not be there on Windows
 
 from colorama import *
@@ -201,7 +202,7 @@ def action_status():
             .format(green(current['name']), diff))
 
 def action_hledger(param):
-    print("hledger param", param)
+    # print("hledger param", param)
     data = store.load()
     work = data['work']
 
@@ -212,7 +213,7 @@ def action_hledger(param):
         if 'end' in item:
             str_on = "i %s %s" % (parse_isotime(item['start']), item['name'])
             str_off = "o %s" % (parse_isotime(item['end']))
-            print(str_on + "\n" + str_off)
+            # print(str_on + "\n" + str_off)
 
             hlfile.write(str_on + "\n")
             hlfile.write(str_off + "\n")
@@ -228,7 +229,7 @@ def action_hledger(param):
     #  subprocess.call(cmd_str, shell=True)
 
     cmd_list = ['hledger'] + ['-f'] + [hlfname] + param
-    print("Executing: " + " ".join(cmd_list))
+    print("tim executes: " + " ".join(cmd_list))
     #  subprocess.call(['ls', '-l'])
     #  subprocess.call(cmd_list, shell=True)
     subprocess.call(cmd_list) 
@@ -358,28 +359,26 @@ def parse_isotime(isotime):
 def timegap(start_time, end_time):
     diff = end_time - start_time
 
-    mins = diff.seconds / 60
+    mins = math.floor(diff.seconds / 60)
+    hours = math.floor(mins/60)
+    rem_mins = mins - hours * 60
 
     if mins == 0:
         return 'less than a minute'
-    elif mins == 1:
-        return 'a minute'
-    elif mins < 44:
+    elif mins < 59:
         return '{} minutes'.format(mins)
-    elif mins < 89:
-        return 'about an hour'
     elif mins < 1439:
-        return 'about {} hours'.format(mins / 60)
-    elif mins < 2519:
-        return 'about a day'
-    elif mins < 43199:
-        return 'about {} days'.format(mins / 1440)
-    elif mins < 86399:
-        return 'about a month'
-    elif mins < 525599:
-        return 'about {} months'.format(mins / 43200)
+        return '%d hours and %d minutes' % (hours, rem_mins)
     else:
-        return 'more than a year'
+        return "more than a day " + red("(%d hours)" %(hours))
+    # elif mins < 43199:
+    #     return 'about {} days'.format(mins / 1440)
+    # elif mins < 86399:
+    #     return 'about a month'
+    # elif mins < 525599:
+    #     return 'about {} months'.format(mins / 43200)
+    # else:
+    #     return 'more than a year'
 
 
 def helpful_exit(msg=__doc__):
