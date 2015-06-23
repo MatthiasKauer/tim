@@ -1,4 +1,5 @@
 (A) 2015-06-22 Add config option for alternative usage folder (want to share over seafile)
+(B) 2015-06-23 remove fuzzy output (or make crisper; I hate seeing about an hour all the time in status)
 (B) 2015-06-20 Make tests work
 (B) 2015-06-20 Adjust usage help
 (B) 2015-06-20 Simplify code further (delele unneeded)
