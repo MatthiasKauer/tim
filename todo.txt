@@ -3,6 +3,8 @@
 (B) 2015-06-20 Make tests work
 (B) 2015-06-20 Adjust usage help
 (B) 2015-06-20 Simplify code further (delele unneeded)
+(C) 2015-06-24 make sure colorama {{https://pypi.python.org/pypi/colorama}} is initialized properly; test demo on Windows; allow bold only mode (bright in colorama, see demo)
+(C) 2015-06-24 let ppl disable color codes
 (C) 2015-06-23 make --version work
 (C) 2015-06-23 Write a temporary now line to hledger file s.t. ongoing task is reflected? (might be trouble later when adjusting to ledger file entirely; maybe write a temp file that is included from main file via ledger syntax)
 (C) 2015-06-20 Adjust README
