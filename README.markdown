@@ -19,6 +19,10 @@ This leaves the following commands intact:
 * status
 * help
 
+#File size considerations
+My tim-sheet grows roughly 2KB / day. That's about 700kB / year. Probably less if I don't track weekends.
+Writing line by line the way I am doing it now is starting to get slow already however (at 6KB). hledger itself is significantly faster. As soon as this difference bothers me enough I will switch to storing in hledger format directly s.t. the speed will no longer be an issue.
+
 
 # ti &mdash; A silly simple time tracker
 
