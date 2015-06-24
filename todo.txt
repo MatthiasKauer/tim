@@ -4,6 +4,7 @@
 (B) 2015-06-20 Make tests work
 (B) 2015-06-20 Adjust usage help
 (B) 2015-06-20 Simplify code further (delele unneeded)
+(C) 2015-06-24 tim hl1 etc should allow additional parameters to be curried, e.g., for filtering
 (C) 2015-06-24 make times "at 12:23" work for switching
 (C) 2015-06-24 make sure colorama {{https://pypi.python.org/pypi/colorama}} is initialized properly; test demo on Windows; allow bold only mode (bright in colorama, see demo)
 (C) 2015-06-24 let ppl disable color codes
@@ -12,6 +13,7 @@
 (C) 2015-06-20 Adjust README
 (C) 2015-06-22 Adjust requirements in setup.py
 (C) 2015-06-20 Add conda environment for Windows development (test whether it is usable with fresh environment)
+(D) 2015-06-24 add editor config
 (D) 2015-06-20 Publish to pypi 
 (D) 2015-06-20 Publish on web site
 x (A) 2015-06-22 Add config option for alternative usage folder (want to share over seafile) [can now move sheet to whereever]
