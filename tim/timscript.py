@@ -362,15 +362,15 @@ def parse_args(argv=sys.argv):
 
     elif head in ['hl1']:
         fn = action_hledger
-        args = {'param': ['balance', '--daily','--begin', 'today']}
+        args = {'param': ['balance', '--daily','--begin', 'today'] + tail}
     
     elif head in ['hl2']:
         fn = action_hledger
-        args = {'param': ['balance', '--daily','--begin', 'this week']}
+        args = {'param': ['balance', '--daily','--begin', 'this week'] + tail}
 
     elif head in ['hl3']:
         fn = action_hledger
-        args = {'param': ['balance', '--weekly','--begin', 'this month']}
+        args = {'param': ['balance', '--weekly','--begin', 'this month'] + tail}
 
     elif head in ['ini']:
         fn = action_ini
