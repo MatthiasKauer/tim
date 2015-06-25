@@ -57,13 +57,6 @@ class JsonStore(object):
         self.cfg.read(cfg_fname)  #no error if not found
         self.filename = os.path.abspath(os.path.join(self.cfg.get('tim','folder'), 'tim-sheet.json'))
         print("self.filename: %s" % (self.filename))
-        # if(os.path.exists(cfg_fname)):
-
-        # print(self.cfg.get('tim','sheet_fname'))
-        # os.getenv('SHEET_FILE', None)
-        # 
-
-        # self.filename = filename
 
     def load(self):
 
@@ -222,7 +215,8 @@ def action_hledger(param):
     data = store.load()
     work = data['work']
 
-    hlfname = os.path.expanduser('~/.tim.hledger')
+    # hlfname = os.path.expanduser('~/.tim.hledger')
+    hlfname = os.path.join( store.cfg.get('tim', 'folder'), '.tim.hledger-temp')
     hlfile = open(hlfname, 'w')
 
     for item in work:
