@@ -1,4 +1,3 @@
-(B) 2015-06-20 Simplify code further (delele unneeded)
 (B) 2015-06-24 tim hl1 etc should allow additional parameters to be curried, e.g., for filtering
 (B) 2015-06-24 make times "at 12:23" work for switching
 (C) 2015-06-20 Make tests work
@@ -17,5 +16,6 @@ x (A) 2015-06-24 make finish output a time (and add duration too!)
 x (A) 2015-06-23 make ini writing and checking (output current config?) easy
 x (A) 2015-06-23 specify working dir instead of sheetname => move hledger output over as well
 x (A) 2015-06-22 Add config option for alternative usage folder (want to share over seafile) [can now move sheet to whereever]
+x (B) 2015-06-20 Simplify code further (delele unneeded)
 x (B) 2015-06-23 remove fuzzy output (or make crisper; I hate seeing about an hour all the time in status)
 x (C) 2015-06-20 Make installing easy [setup.py works on Windows]
