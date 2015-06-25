@@ -42,6 +42,7 @@ import subprocess
 import math
 import ConfigParser
 import StringIO
+import parsedatetime
 #  import shlex #may not be there on Windows
 
 from colorama import *
@@ -241,8 +242,21 @@ def to_datetime(timestr):
     return dt
 
 def parse_engtime(timestr):
+#http://stackoverflow.com/questions/4615250/python-convert-relative-date-string-to-absolute-date-stamp
+    cal = parsedatetime.Calendar()
+    if timestr is None or timestr is "":\
+        timestr = 'now'
+
+    #example from here: https://github.com/bear/parsedatetime/pull/60
+    ret = cal.parseDT(timestr, sourceTime=datetime.utcnow())[0]
+    return ret
+    # interim_result = cal.parse(timestr)
+    
+    # return datetime.datetime(*interim_result[0][:6])
+    
+def parse_engtime_old(timestr):
     now = datetime.utcnow().replace(microsecond=0)
-    print("now", now, now.tzinfo)
+    # print("now", now, now.tzinfo)
     if not timestr or timestr.strip() == 'now':
         return now
 
