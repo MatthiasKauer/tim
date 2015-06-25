@@ -130,8 +130,11 @@ def action_fin(time, back_from_interrupt=True):
 
     current = data['work'][-1]
     current['end'] = time
+
+    start_time = parse_isotime(current['start'])
+    diff = timegap(start_time, datetime.utcnow())
+    print('You stopped working on ' + red(current['name']) + ' at ' + time + ' (total: ' + diff + ').')
     store.dump(data)
-    print('So you stopped working on ' + red(current['name']) + '.')
 
     if back_from_interrupt and len(data['interrupt_stack']) > 0:
         name = data['interrupt_stack'].pop()['name']
