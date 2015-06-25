@@ -41,6 +41,7 @@ import sys
 import subprocess
 import math
 import ConfigParser
+import StringIO
 #  import shlex #may not be there on Windows
 
 from colorama import *
@@ -48,14 +49,14 @@ from colorama import *
 class JsonStore(object):
 
     def __init__(self):
-        cfg_fname = os.path.expanduser('~/.tim.ini')
+        cfg_fname = os.path.abspath(os.path.expanduser('~/.tim.ini'))
         self.cfg = ConfigParser.SafeConfigParser() #defaults={'tim':{'sheet_fname':os.path.expanduser('~/.tim-sheet')}})
 
         self.cfg.add_section('tim')
-        self.cfg.set('tim', 'sheet_fname', os.path.expanduser('~/.tim-sheet'))
+        self.cfg.set('tim', 'folder', os.path.abspath(os.path.expanduser('~')))
         self.cfg.read(cfg_fname)  #no error if not found
-        self.filename = os.path.abspath(self.cfg.get('tim','sheet_fname'))
-        print(self.filename)
+        self.filename = os.path.abspath(os.path.join(self.cfg.get('tim','folder'), 'tim-sheet.json'))
+        print("self.filename: %s" % (self.filename))
         # if(os.path.exists(cfg_fname)):
 
         # print(self.cfg.get('tim','sheet_fname'))
@@ -249,47 +250,58 @@ def action_hledger(param):
     #  subprocess.call(cmd_list, shell=True)
     subprocess.call(cmd_list) 
 
-def action_log(period):
-    data = store.load()
-    work = data['work'] + data['interrupt_stack']
-    log = defaultdict(lambda: {'delta': timedelta()})
-    current = None
+def action_ini():
+    out_str = StringIO.StringIO()
 
-    for item in work:
-        start_time = parse_isotime(item['start'])
-        if 'end' in item:
-            log[item['name']]['delta'] += parse_isotime(item['end']) - start_time
-        else:
-            log[item['name']]['delta'] += datetime.utcnow() - start_time
-            current = item['name']
+    store.cfg.write(out_str)
+    print("#this is the ini file for tim - a tiny time keeping tool with hledger in the back")
+    print("#I suggest you call tim ini > ~/.tim.ini to start using this optional config file")
 
-    name_col_len = 0
+    print(out_str.getvalue())
 
-    for name, item in log.items():
-        name_col_len = max(name_col_len, len(name))
 
-        secs = item['delta'].seconds
-        tmsg = []
 
-        if secs > 3600:
-            hours = int(secs / 3600)
-            secs -= hours * 3600
-            tmsg.append(str(hours) + ' hour' + ('s' if hours > 1 else ''))
-
-        if secs > 60:
-            mins = int(secs / 60)
-            secs -= mins * 60
-            tmsg.append(str(mins) + ' minute' + ('s' if mins > 1 else ''))
-
-        if secs:
-            tmsg.append(str(secs) + ' second' + ('s' if secs > 1 else ''))
-
-        log[name]['tmsg'] = ', '.join(tmsg)[::-1].replace(',', ' &'[::-1], 1)[::-1]
-
-    for name, item in sorted(log.items(), key=(lambda x: x[1]), reverse=True):
-        print(name.ljust(name_col_len), ' ∙∙ ', item['tmsg'],
-                end=' ← working\n' if current == name else '\n')
-
+# def action_log(period):
+#     data = store.load()
+#     work = data['work'] + data['interrupt_stack']
+#     log = defaultdict(lambda: {'delta': timedelta()})
+#     current = None
+# 
+#     for item in work:
+#         start_time = parse_isotime(item['start'])
+#         if 'end' in item:
+#             log[item['name']]['delta'] += parse_isotime(item['end']) - start_time
+#         else:
+#             log[item['name']]['delta'] += datetime.utcnow() - start_time
+#             current = item['name']
+# 
+#     name_col_len = 0
+# 
+#     for name, item in log.items():
+#         name_col_len = max(name_col_len, len(name))
+# 
+#         secs = item['delta'].seconds
+#         tmsg = []
+# 
+#         if secs > 3600:
+#             hours = int(secs / 3600)
+#             secs -= hours * 3600
+#             tmsg.append(str(hours) + ' hour' + ('s' if hours > 1 else ''))
+# 
+#         if secs > 60:
+#             mins = int(secs / 60)
+#             secs -= mins * 60
+#             tmsg.append(str(mins) + ' minute' + ('s' if mins > 1 else ''))
+# 
+#         if secs:
+#             tmsg.append(str(secs) + ' second' + ('s' if secs > 1 else ''))
+# 
+#         log[name]['tmsg'] = ', '.join(tmsg)[::-1].replace(',', ' &'[::-1], 1)[::-1]
+# 
+#     for name, item in sorted(log.items(), key=(lambda x: x[1]), reverse=True):
+#         print(name.ljust(name_col_len), ' ∙∙ ', item['tmsg'],
+#                 end=' ← working\n' if current == name else '\n')
+# 
 
 #  def action_edit():
 #      if 'EDITOR' not in os.environ:
@@ -471,6 +483,10 @@ def parse_args(argv=sys.argv):
     elif head in ['hl3']:
         fn = action_hledger
         args = {'param': ['balance', '--weekly','--begin', 'this month']}
+
+    elif head in ['ini']:
+        fn = action_ini
+        args = {}
 
     #  elif head in ['t', 'tag']:
     #      if not tail:
