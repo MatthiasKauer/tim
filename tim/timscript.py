@@ -50,7 +50,7 @@ class JsonStore(object):
 
     def __init__(self):
         cfg_fname = os.path.abspath(os.path.expanduser('~/.tim.ini'))
-        self.cfg = ConfigParser.SafeConfigParser() #defaults={'tim':{'sheet_fname':os.path.expanduser('~/.tim-sheet')}})
+        self.cfg = ConfigParser.SafeConfigParser() 
 
         self.cfg.add_section('tim')
         self.cfg.set('tim', 'folder', os.path.abspath(os.path.expanduser('~')))
@@ -98,6 +98,12 @@ def blue(str):
     else:
         return str
 
+def bold(str):
+#doesn't do much on my ConEmu Windows 7 system, but let's see
+    if use_color:
+        return Style.BRIGHT + str + Style.RESET_ALL
+    else:
+        return str
 
 def action_switch(name, time):
     action_fin(time)
@@ -133,7 +139,7 @@ def action_fin(time, back_from_interrupt=True):
 
     start_time = parse_isotime(current['start'])
     diff = timegap(start_time, datetime.utcnow())
-    print('You stopped working on ' + red(current['name']) + ' at ' + time + ' (total: ' + diff + ').')
+    print('You stopped working on ' + red(current['name']) + ' at ' + time + ' (total: ' + bold(diff) + ').')
     store.dump(data)
 
     if back_from_interrupt and len(data['interrupt_stack']) > 0:
