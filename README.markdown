@@ -23,6 +23,21 @@ This leaves the following commands intact:
 My tim-sheet grows roughly 2KB / day. That's about 700kB / year. Probably less if I don't track weekends.
 Writing line by line the way I am doing it now is starting to get slow already however (at 6KB). hledger itself is significantly faster. As soon as this difference bothers me enough I will switch to storing in hledger format directly s.t. the speed will no longer be an issue.
 
+#For developers
+###Python environment installation
+####Windows
+We develop using Anaconda with package manager [conda](http://conda.io/).
+You can install all packages in our environment (inspect environment.yml beforehand; expect 2-3 min of linking/downloading, probably more if your conda base installation is still very basic or has vastly different packages than mine) using:
+```
+conda env create
+```
+if it already exists you may have to remove it first.
+
+    * Read <name> on top of environment.yml
+    * Confirm via ```conda env list```
+    * Remove ```conda env remove --name <name>```
+
+If you feel like updating the environment, run ```conda env export -f environment.yml``` and commit it to the repository.
 
 # ti &mdash; A silly simple time tracker
 

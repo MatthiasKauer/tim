@@ -1,0 +1,16 @@
+name: py27dev
+dependencies:
+- colorama=0.3.3=py27_0
+- ipython=3.2.0=py27_0
+- numpy=1.9.2=py27_0
+- pip=7.0.3=py27_0
+- pyreadline=2.0=py27_0
+- python=2.7.10=0
+- pyyaml=3.11=py27_1
+- scipy=0.15.1=np19py27_0
+- setuptools=17.1.1=py27_0
+- pip:
+  - cram==0.6
+  - parsedatetime==1.5
+  - python-wordpress-xmlrpc==2.3
+  - pytz==2015.4
