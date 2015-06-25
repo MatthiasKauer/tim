@@ -106,10 +106,10 @@ def bold(str):
         return str
 
 def action_switch(name, time):
-    action_fin(time)
-    action_on(name, time)
+    action_end(time)
+    action_begin(name, time)
 
-def action_on(name, time):
+def action_begin(name, time):
     data = store.load()
     work = data['work']
 
@@ -129,7 +129,7 @@ def action_on(name, time):
     print('Start working on ' + green(name) + ' at ' + time + '.')
 
 
-def action_fin(time, back_from_interrupt=True):
+def action_end(time, back_from_interrupt=True):
     ensure_working()
 
     data = store.load()
@@ -141,15 +141,6 @@ def action_fin(time, back_from_interrupt=True):
     diff = timegap(start_time, datetime.utcnow())
     print('You stopped working on ' + red(current['name']) + ' at ' + time + ' (total: ' + bold(diff) + ').')
     store.dump(data)
-
-    if back_from_interrupt and len(data['interrupt_stack']) > 0:
-        name = data['interrupt_stack'].pop()['name']
-        store.dump(data)
-        action_on(name, time)
-        if len(data['interrupt_stack']) > 0:
-            print('You are now %d deep in interrupts.' % len(data['interrupt_stack']))
-        else:
-            print('Congrats, you\'re out of interrupts!')
 
 def action_status():
     try:
@@ -333,11 +324,11 @@ def parse_args(argv=sys.argv):
     #      fn = action_edit
     #      args = {}
 
-    elif head in ['o', 'on']:
+    elif head in ['bg', 'begin','o', 'on']:
         if not tail:
             helpful_exit('Need the name of whatever you are working on.')
 
-        fn = action_on
+        fn = action_begin
         args = {
             'name': tail[0],
             'time': to_datetime(' '.join(tail[1:])),
@@ -353,8 +344,8 @@ def parse_args(argv=sys.argv):
             'time': to_datetime(' '.join(tail[1:])),
         }
 
-    elif head in ['f', 'fin']:
-        fn = action_fin
+    elif head in ['f', 'fin', 'end', 'nd']:
+        fn = action_end
         args = {'time': to_datetime(' '.join(tail))}
 
     elif head in ['st', 'status']:
