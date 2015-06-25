@@ -293,7 +293,7 @@ def timegap(start_time, end_time):
     rem_mins = mins - hours * 60
 
     if mins == 0:
-        return 'less than a minute'
+        return 'under 1 minute'
     elif mins < 59:
         return '%d minutes' % (mins)
     elif mins < 1439:
