@@ -1,0 +1,6 @@
+build/
+dist/
+tim.egg-info/
+**/*.pyc
+**/*.swp
+**/.*project
