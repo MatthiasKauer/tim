@@ -47,8 +47,12 @@ import parsedatetime
 
 from colorama import *
 
-class JsonStore(object):
+import pytz
+# http://stackoverflow.com/questions/13218506/how-to-get-system-timezone-setting-and-pass-it-to-pytz-timezone
+from tzlocal import get_localzone # $ pip install tzlocal
+local_tz = get_localzone()
 
+class JsonStore(object):
     def __init__(self):
         cfg_fname = os.path.abspath(os.path.expanduser('~/.tim.ini'))
         self.cfg = ConfigParser.SafeConfigParser() 
@@ -248,8 +252,10 @@ def parse_engtime(timestr):
         timestr = 'now'
 
     #example from here: https://github.com/bear/parsedatetime/pull/60
-    ret = cal.parseDT(timestr, sourceTime=datetime.utcnow())[0]
-    return ret
+    ret = cal.parseDT(timestr, tzinfo=local_tz)[0]
+    ret_utc = ret.astimezone(pytz.utc)
+    # ret = cal.parseDT(timestr, sourceTime=datetime.utcnow())[0]
+    return ret_utc
     # interim_result = cal.parse(timestr)
     
     # return datetime.datetime(*interim_result[0][:6])
