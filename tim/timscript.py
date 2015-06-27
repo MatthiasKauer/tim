@@ -144,7 +144,8 @@ def action_end(time, back_from_interrupt=True):
     current['end'] = time
 
     start_time = parse_isotime(current['start'])
-    diff = timegap(start_time, datetime.utcnow())
+    # print(type(start_time), type(time))
+    diff = timegap(start_time, parse_isotime(time))
     print('You stopped working on ' + red(current['name']) + ' at ' + time + ' (total: ' + bold(diff) + ').')
     store.dump(data)
 
