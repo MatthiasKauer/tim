@@ -51,6 +51,7 @@ import pytz
 # http://stackoverflow.com/questions/13218506/how-to-get-system-timezone-setting-and-pass-it-to-pytz-timezone
 from tzlocal import get_localzone # $ pip install tzlocal
 local_tz = get_localzone()
+date_format = '%Y-%m-%dT%H:%M:%SZ'
 
 class JsonStore(object):
     def __init__(self):
@@ -242,7 +243,8 @@ def ensure_working():
 
 def to_datetime(timestr):
     #Z denotes zulu for UTC (https://tools.ietf.org/html/rfc3339#section-2)
-    dt = parse_engtime(timestr).isoformat() + "Z" 
+    # dt = parse_engtime(timestr).isoformat() + "Z" 
+    dt = parse_engtime(timestr).strftime(date_format)
     return dt
 
 def parse_engtime(timestr):
@@ -288,7 +290,7 @@ def parse_engtime_old(timestr):
 
 
 def parse_isotime(isotime):
-    return datetime.strptime(isotime, '%Y-%m-%dT%H:%M:%SZ')
+    return datetime.strptime(isotime, date_format )
 
 
 def timegap(start_time, end_time):
@@ -396,7 +398,7 @@ def parse_args(argv=sys.argv):
         fn = action_ini
         args = {}
     else:
-        helpful_exit("I don't understand '" + head + "'")
+        helpful_exit("I don't understand command '" + head + "'")
 
     return fn, args
 
