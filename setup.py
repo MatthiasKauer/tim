@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 setup(name='tim',
-        version = '0.4',
+        version = '0.4.1',
         install_requires=[
             'argparse>=1.1',
             'parsedatetime>=1.2',
