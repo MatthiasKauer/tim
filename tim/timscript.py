@@ -194,7 +194,8 @@ def action_ini():
 
     store.cfg.write(out_str)
     print("#this is the ini file for tim - a tiny time keeping tool with hledger in the back")
-    print("#I suggest you call tim ini > ~/.tim.ini to start using this optional config file")
+    print("#I suggest you call tim ini > %s to start using this optional config file"
+            %(os.path.abspath(os.path.expanduser('~/.tim.ini'))))
 
     print(out_str.getvalue())
 
