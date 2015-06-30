@@ -47,6 +47,7 @@ import shutil
 #  import shlex #may not be there on Windows
 
 from colorama import *
+from tim import __version__
 
 import pytz
 # http://stackoverflow.com/questions/13218506/how-to-get-system-timezone-setting-and-pass-it-to-pytz-timezone
@@ -202,6 +203,9 @@ def action_ini():
             %(os.path.abspath(os.path.expanduser('~/.tim.ini'))))
 
     print(out_str.getvalue())
+
+def action_version():
+    print("tim version " + __version__)
 
 def action_edit():
     editor_cfg = store.cfg.get('tim', 'editor')
@@ -414,6 +418,10 @@ def parse_args(argv=sys.argv):
 
     elif head in ['ini']:
         fn = action_ini
+        args = {}
+
+    elif head in ['--version', '-v']:
+        fn = action_version
         args = {}
 
     elif head in ['pt', 'printtime']:
