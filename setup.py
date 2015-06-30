@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 import os
 from setuptools import setup, find_packages
+from tim import __version__
 
 
 setup(name='tim',
-        version = '0.4.1',
+        version = __version__,
         install_requires=[
             'argparse>=1.1',
             'parsedatetime>=1.2',

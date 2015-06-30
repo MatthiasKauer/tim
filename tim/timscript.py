@@ -62,7 +62,7 @@ class JsonStore(object):
         self.cfg.set('tim', 'folder', os.path.abspath(os.path.expanduser('~')))
         self.cfg.read(cfg_fname)  #no error if not found
         self.filename = os.path.abspath(os.path.join(self.cfg.get('tim','folder'), 'tim-sheet.json'))
-        print("self.filename: %s" % (self.filename))
+        print("#self.filename: %s" % (self.filename))
 
     def load(self):
 
