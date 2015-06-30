@@ -43,6 +43,7 @@ import math
 import ConfigParser
 import StringIO
 import parsedatetime
+import shutil
 #  import shlex #may not be there on Windows
 
 from colorama import *
@@ -207,18 +208,17 @@ def action_edit():
     print(editor_cfg)
     if 'EDITOR' in os.environ:
         cmd = os.getenv('EDITOR')
-        subprocess.check_call(cmd + ' ' + store.filename, shell=True)
-        
     if editor_cfg is not "":
-        subprocess.check_call(editor_cfg + ' ' + store.filename, shell=True)
-
+        cmd = editor_cfg
     else:
         print("Please set the 'EDITOR' environment variable or adjust editor= in ini file", file=sys.stderr)
         raise SystemExit(1)
 
-    
-
-
+    bakname = os.path.abspath(store.filename + '.bak-' + date.today().strftime("%Y%m%d"))
+    shutil.copy(store.filename, bakname)
+    print("Created backup of main sheet at " + bakname + ".")
+    print("You must delete those manually! Now begin editing!")
+    subprocess.check_call(cmd + ' ' + store.filename, shell=True)
  
 #      data = store.load()
 #      yml = yaml.safe_dump(data, default_flow_style=False, allow_unicode=True)
