@@ -60,6 +60,7 @@ class JsonStore(object):
 
         self.cfg.add_section('tim')
         self.cfg.set('tim', 'folder', os.path.abspath(os.path.expanduser('~')))
+        self.cfg.set('tim', 'editor', "vim")
         self.cfg.read(cfg_fname)  #no error if not found
         self.filename = os.path.abspath(os.path.join(self.cfg.get('tim','folder'), 'tim-sheet.json'))
         print("#self.filename: %s" % (self.filename))
@@ -134,6 +135,8 @@ def action_begin(name, time):
 
     print('Start working on ' + green(name) + ' at ' + time + '.')
 
+def action_printtime(time):
+    print("You entered '" + time + "' as a test")
 
 def action_end(time, back_from_interrupt=True):
     ensure_working()
@@ -199,11 +202,24 @@ def action_ini():
 
     print(out_str.getvalue())
 
-#  def action_edit():
-#      if 'EDITOR' not in os.environ:
-#          print("Please set the 'EDITOR' environment variable", file=sys.stderr)
-#          raise SystemExit(1)
-#  
+def action_edit():
+    editor_cfg = store.cfg.get('tim', 'editor')
+    print(editor_cfg)
+    if 'EDITOR' in os.environ:
+        cmd = os.getenv('EDITOR')
+        subprocess.check_call(cmd + ' ' + store.filename, shell=True)
+        
+    if editor_cfg is not "":
+        subprocess.check_call(editor_cfg + ' ' + store.filename, shell=True)
+
+    else:
+        print("Please set the 'EDITOR' environment variable or adjust editor= in ini file", file=sys.stderr)
+        raise SystemExit(1)
+
+    
+
+
+ 
 #      data = store.load()
 #      yml = yaml.safe_dump(data, default_flow_style=False, allow_unicode=True)
 #  
@@ -344,9 +360,9 @@ def parse_args(argv=sys.argv):
     if head in ['-h', '--help', 'h', 'help']:
         helpful_exit()
 
-    #  elif head in ['e', 'edit']:
-    #      fn = action_edit
-    #      args = {}
+    elif head in ['e', 'edit']:
+        fn = action_edit
+        args = {}
 
     elif head in ['bg', 'begin','o', 'on']:
         if not tail:
@@ -399,6 +415,10 @@ def parse_args(argv=sys.argv):
     elif head in ['ini']:
         fn = action_ini
         args = {}
+
+    elif head in ['pt', 'printtime']:
+        fn = action_printtime
+        args = {'time': to_datetime(' '.join(tail))}
     else:
         helpful_exit("I don't understand command '" + head + "'")
 

@@ -1,5 +1,3 @@
-(B) 2015-06-26 "at 9:26" times are treated as if they are in UTC messing up my calculations
-(B) 2015-06-26 add parsing experimentation functionality
 (C) 2015-06-20 Make tests work [tried to get cram running on Windows but it wouldn't; raised issue w/ them; now waiting]
 (C) 2015-06-26 ini should only output default parts of the ini not the parts the user has added (as seen when I still had old config settings after upgrading)
 (C) 2015-06-24 make sure colorama {{https://pypi.python.org/pypi/colorama}} is initialized properly; test demo on Windows; allow bold only mode (bright in colorama, see demo)
@@ -9,14 +7,17 @@
 (C) 2015-06-20 Adjust README
 (C) 2015-06-22 Adjust requirements in setup.py
 (C) 2015-06-20 Add conda environment for Windows development (test whether it is usable with fresh environment)
+(D) 2015-06-30 consider re-activating ti's editor backup via temp file
 (D) 2015-06-20 Adjust usage help
-(D) 2015-06-24 add editor config
+x (D) 2015-06-24 add editor config
 (D) 2015-06-20 Publish to pypi 
 (D) 2015-06-20 Publish on web site
 x (A) 2015-06-24 make finish output a time (and add duration too!)
 x (A) 2015-06-23 make ini writing and checking (output current config?) easy
 x (A) 2015-06-23 specify working dir instead of sheetname => move hledger output over as well
 x (A) 2015-06-22 Add config option for alternative usage folder (want to share over seafile) [can now move sheet to whereever]
+x (B) 2015-06-26 add parsing experimentation functionality
+x (B) 2015-06-26 "at 9:26" times are treated as if they are in UTC messing up my calculations [fixed w/ pytz and tzlocal]
 x (B) 2015-06-24 make times "at 12:23" work for switching [parsedatetime seems to be a tremendous library]
 x (B) 2015-06-24 tim hl1 etc should allow additional parameters to be curried, e.g., for filtering
 x (B) 2015-06-20 Simplify code further (delele unneeded)
