@@ -1,5 +1,6 @@
 (C) 2015-06-20 Make tests work [tried to get cram running on Windows but it wouldn't; raised issue w/ them; now waiting]
 (C) 2015-06-26 ini should only output default parts of the ini not the parts the user has added (as seen when I still had old config settings after upgrading)
+(C) 2015-07-06 add command for config editing
 (C) 2015-07-01 edit must catch the case when sheet doesn't exist (currently shutil copy just errors out)
 (C) 2015-06-24 make sure colorama {{https://pypi.python.org/pypi/colorama}} is initialized properly; test demo on Windows; allow bold only mode (bright in colorama, see demo)
 (C) 2015-06-30 use gitpython for backing up sheet instead of copying all the time {{http://stackoverflow.com/questions/1456269/python-git-module-experiences}}
