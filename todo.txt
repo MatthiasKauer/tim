@@ -1,4 +1,5 @@
 (B) 2015-07-07 status should output when the last end was (if nothing is worked on currently)
+(B) 2015-07-07 Add stats command (informing me about DB size)
 (C) 2015-06-20 Make tests work [tried to get cram running on Windows but it wouldn't; raised issue w/ them; now waiting]
 (C) 2015-06-26 ini should only output default parts of the ini not the parts the user has added (as seen when I still had old config settings after upgrading)
 (C) 2015-07-06 add command for config editing
