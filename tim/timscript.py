@@ -416,6 +416,10 @@ def parse_args(argv=sys.argv):
         fn = action_hledger
         args = {'param': ['balance', '--weekly','--begin', 'this month'] + tail}
 
+    elif head in ['hl4']:
+        fn = action_hledger
+        args = {'param': ['balance', '--monthly','--begin', 'this year'] + tail}
+
     elif head in ['ini']:
         fn = action_ini
         args = {}
