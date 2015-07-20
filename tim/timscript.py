@@ -46,7 +46,9 @@ import parsedatetime
 import shutil
 #  import shlex #may not be there on Windows
 
-from colorama import *
+import colorama as cr
+cr.init()
+
 from tim import __version__
 
 import pytz
@@ -57,7 +59,7 @@ date_format = '%Y-%m-%dT%H:%M:%SZ'
 
 class JsonStore(object):
     def __init__(self):
-        cfg_fname = os.path.abspath(os.path.expanduser('~/.tim.ini'))
+        cfg_fname = os.path.abspath(os.path.expanduser('~/.tim_test.ini'))
         self.cfg = ConfigParser.SafeConfigParser() 
 
         self.cfg.add_section('tim')
@@ -85,32 +87,32 @@ class JsonStore(object):
 
 def red(str):
     if use_color:
-        return Fore.RED + str + Fore.RESET
+        return cr.Fore.RED + str + cr.Fore.RESET
     else:
         return str
 
 def green(str):
     if use_color:
-        return Fore.GREEN + str + Fore.RESET
+        return cr.Fore.GREEN + str + cr.Fore.RESET
     else: 
         return str
 
 def yellow(str):
     if use_color: 
-        return Fore.YELLOW + str + Fore.RESET
+        return cr.Fore.YELLOW + str + cr.Fore.RESET
     else:
         return str
 
 def blue(str):
     if use_color: 
-        return Fore.BLUE + str + Fore.RESET
+        return cr.Back.WHITE + cr.Fore.BLUE + str + cr.Fore.RESET + cr.Back.RESET
     else:
         return str
 
 def bold(str):
 #doesn't do much on my ConEmu Windows 7 system, but let's see
     if use_color:
-        return Style.BRIGHT + str + Style.RESET_ALL
+        return cr.Style.BRIGHT + str + cr.Style.RESET_ALL
     else:
         return str
 
@@ -155,10 +157,9 @@ def action_end(time, back_from_interrupt=True):
     store.dump(data)
 
 def action_status():
-    try:
-        ensure_working()
-    except SystemExit(1):
-        return
+    ensure_working()
+    # except SystemExit(1):
+    #     return
 
     data = store.load()
     current = data['work'][-1]
@@ -249,16 +250,26 @@ def action_edit():
 #      store.dump(data)
 #  
 
-def is_working():
-    data = store.load()
-    return data.get('work') and 'end' not in data['work'][-1]
-
+# def is_working():
 
 def ensure_working():
-    if is_working(): return
+    data = store.load()
+    work_data = data.get('work') 
+    is_working = work_data and 'end' not in data['work'][-1]
+    if is_working:
+        return True
 
-    print("For all I know, you aren't working on anything."
+    # print(has_data)
+    if work_data:
+        last = work_data[-1]
+        print("For all I know, you last worked on {} from {} to {}".format(
+                blue(last['name']), green(last['start']), red(last['end'])),
+                file=sys.stderr)
+        # print(data['work'][-1])
+    else:
+        print("For all I know, you " + bold("never") + " worked on anything."
             " I don't know what to do.", file=sys.stderr)
+
     print('See `ti -h` to know how to start working.', file=sys.stderr)
     raise SystemExit(1)
 
@@ -380,7 +391,7 @@ def parse_args(argv=sys.argv):
 
     elif head in ['sw', 'switch']:
         if not tail:
-            helpful_exit('Need the name of whatever you are working on.')
+            helpful_exit('I need the name of whatever you are working on.')
 
         fn = action_switch
         args = {
