@@ -59,7 +59,7 @@ date_format = '%Y-%m-%dT%H:%M:%SZ'
 
 class JsonStore(object):
     def __init__(self):
-        cfg_fname = os.path.abspath(os.path.expanduser('~/.tim_test.ini'))
+        cfg_fname = os.path.abspath(os.path.expanduser('~/.tim.ini'))
         self.cfg = ConfigParser.SafeConfigParser() 
 
         self.cfg.add_section('tim')
