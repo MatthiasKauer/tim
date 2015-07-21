@@ -4,4 +4,4 @@ python:
 # command to install dependencies
 install: "pip install -r req.txt"
 # command to run tests
-script: cram tests/*.t
+script: cram test
