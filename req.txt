@@ -4,3 +4,4 @@ cram==0.6
 parsedatetime==1.5
 pytz==2015.4
 tzlocal==1.2
+pyyaml=3.11
