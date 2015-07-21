@@ -1,3 +1,6 @@
+[![build status](https://travis-ci.org/MatthiasKauer/tim.png?branch=master)](https://travis-ci.org/MatthiasKauer/tim)
+**Note: I'm in the process of adapting the cram tests to tim; this is difficult on Windows and happens only when I feel like booting up my Linux machine. I am using tim daily already however**
+
 #tim amendments
 tim tries to simplify [ti](https://github.com/sharat87/ti) by relying on [hledger](http://hledger.org/) (which must be on your path) for number crunching.
 
