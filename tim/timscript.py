@@ -30,31 +30,29 @@ Options:
 from __future__ import print_function
 from __future__ import unicode_literals
 
-#  import pytz
-import json, yaml
+import sys
 from datetime import datetime, timedelta, date
 from collections import defaultdict
-import re
-import os, subprocess, tempfile
-from os import path
-import sys
+#  import re
+#  import os, subprocess, tempfile
+import os
 import subprocess
 import math
 import ConfigParser
 import StringIO
-import parsedatetime
 import shutil
-#  import shlex #may not be there on Windows
-
-import colorama as cr
-cr.init()
-
-from tim import __version__
+import json, yaml
 
 import pytz
+import parsedatetime
+import colorama as cr
+cr.init()
 # http://stackoverflow.com/questions/13218506/how-to-get-system-timezone-setting-and-pass-it-to-pytz-timezone
 from tzlocal import get_localzone # $ pip install tzlocal
 local_tz = get_localzone()
+
+from tim import __version__
+
 date_format = '%Y-%m-%dT%H:%M:%SZ'
 
 class JsonStore(object):
@@ -71,7 +69,7 @@ class JsonStore(object):
 
     def load(self):
 
-        if path.exists(self.filename):
+        if os.path.exists(self.filename):
             with open(self.filename) as f:
                 data = json.load(f)
 

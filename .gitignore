@@ -4,3 +4,4 @@ tim.egg-info/
 **/*.pyc
 **/*.swp
 **/.*project
+**/*.err

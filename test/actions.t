@@ -1,15 +1,11 @@
 Setup
 
   $ export SHEET_FILE=$TMP/sheet-actions
-  $ alias ti="$TESTDIR/../bin/ti --no-color"
+  $ alias tim="$TESTDIR/../bin/timrun.py --no-color"
 
 Running an unknown action
 
-  $ ti almost-definitely-a-nonexistent-action
-  I don't understand 'almost-definitely-a-nonexistent-action'
+  $ tim almost-definitely-a-nonexistent-action
+  I don't understand command 'almost-definitely-a-nonexistent-action'
+  #self.filename: /home/matthias/Seafile/todo2/tim/tim-sheet.json
 
-Running an ambiguous action
-FIXME: There are no ambiguous to test this functionality!
-
-Running short unambiguous aliases for actions
-FIXME: Define a couple of stub actions to test this on

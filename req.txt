@@ -1,0 +1,7 @@
+argparse==1.2.1
+colorama==0.3.3
+cram==0.6
+parsedatetime==1.5
+pytz==2015.4
+tzlocal==1.2
+pyyaml

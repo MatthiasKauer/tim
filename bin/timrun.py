@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 starter script to be used during development (where paths would otherwise be messed up)
 
