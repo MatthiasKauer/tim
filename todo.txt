@@ -1,8 +1,9 @@
+(A) 2015-07-24 switch should be like begin if working on nothing (or add another syntax?)
 (B) 2015-07-07 status should output when the last end was (if nothing is worked on currently)
 (B) 2015-07-07 Add stats command (informing me about DB size)
 (C) 2015-07-07 Make a relabel command?
 (C) 2015-06-20 Make tests work [tried to get cram running on Windows but it wouldn't; raised issue w/ them; now waiting; {{https://bitbucket.org/brodie/cram/issues/32/windows-usage-instructions#comment-None}} from 2015/06, in 2015/07 still no replies; BATS {{https://blog.engineyard.com/2014/bats-test-command-line-tools}} appears like an alternative but it's unix only as well. aruba in ruby {{https://github.com/cucumber/aruba}} may be crossplatform; doctest may be usable {{https://docs.python.org/2/library/doctest.html}}; parse from inside unit tests {{http://dustinrcollins.com/testing-python-command-line-apps}}, or I stick w/ cram and just run my tests on unix only, travis may be an option for that]
-(C) 2015-07-03 split data files after 1 week (or month) to facilitate merges (merging would also be easier in hledger format b/c the lines don't have so many identical starts) 
+(C) 2015-07-03 split data files after 1 week (or month) to facilitate merges (merging would also be easier in hledger format b/c the lines don't have so many identical starts)
 (C) 2015-06-26 ini should only output default parts of the ini not the parts the user has added (as seen when I still had old config settings after upgrading)
 (C) 2015-07-06 add command for config editing
 (C) 2015-07-01 edit must catch the case when sheet doesn't exist (currently shutil copy just errors out)
@@ -16,7 +17,7 @@
 (C) 2015-06-20 Add conda environment for Windows development (test whether it is usable with fresh environment)
 (D) 2015-06-30 consider re-activating ti's editor backup via temp file
 (D) 2015-06-20 Adjust usage help
-(D) 2015-06-20 Publish to pypi 
+(D) 2015-06-20 Publish to pypi
 (D) 2015-06-20 Publish on web site
 x (A) 2015-06-24 make finish output a time (and add duration too!)
 x (A) 2015-06-23 make ini writing and checking (output current config?) easy
