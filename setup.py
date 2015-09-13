@@ -10,7 +10,7 @@ def read(*paths):
         return f.read()
 
 setup(
-    name='tim-timetracker',
+    name='tim-ledger_diary',
     version = __version__,
     install_requires=[
         'argparse>=1.1',
