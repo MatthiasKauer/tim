@@ -5,3 +5,7 @@ tim.egg-info/
 **/*.swp
 **/.*project
 **/*.err
+*.egg-info/*
+build/*
+dist/*
+venv/*

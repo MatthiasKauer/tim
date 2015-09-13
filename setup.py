@@ -10,7 +10,7 @@ def read(*paths):
         return f.read()
 
 setup(
-    name='tim',
+    name='tim-timetracker',
     version = __version__,
     install_requires=[
         'argparse>=1.1',
@@ -28,6 +28,7 @@ setup(
     license="MIT",
     author="Matthias Kauer",
     author_email="mk.software@zuez.org",
+    url="https://github.com/MatthiasKauer/tim",
     platforms=["Any"],
     classifiers=[
         "Development Status :: 4 - Beta",
