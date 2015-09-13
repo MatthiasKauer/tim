@@ -23,11 +23,11 @@ This leaves the following commands intact:
 * help
 
 #Installation
-Tim is on PyPI: https://pypi.python.org/pypi/tim-timetracker
+Tim is on PyPI: https://pypi.python.org/pypi/tim-ledger_diary
 
 Install via:
 ```
-pip install tim-timetracker
+pip install tim-ledger_diary
 ```
 
 #File size considerations
