@@ -14,6 +14,7 @@ import ConfigParser
 import StringIO
 import shutil
 import json, yaml
+import argparse
 
 import pytz
 import parsedatetime
@@ -244,6 +245,7 @@ def helpful_exit(msg=__doc__):
 
 
 def parse_args(argv=sys.argv):
+    #IDEA: refactor w/ this argparse pattern http://chase-seibert.github.io/blog/2014/03/21/python-multilevel-argparse.html
     global use_color
 
     argv = [arg.decode('utf-8') for arg in argv]
