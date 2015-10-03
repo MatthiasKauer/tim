@@ -1,10 +1,16 @@
 [![build status](https://travis-ci.org/MatthiasKauer/tim.png?branch=master)](https://travis-ci.org/MatthiasKauer/tim)
 **Note: I'm in the process of adapting the cram tests to tim; this is difficult on Windows and happens only when I feel like booting up my Linux machine. I am using tim daily already however**
 
-#tim in action
+# tim in a nutshell
+tim provides a command-line interface to record a time log.
+The following animation shows the basic commands begin, switch, end.
+Data is recorded in json format and can be manually adjusted using any text editor. On my system, vim is assigned for this task.
 ![tim intro gif](gif/tim_intro.gif)
 
-#tim amendments
+When calling ```tim hl```, commands are piped to [hledger](http://hledger.org) for aggregation. Hledger must be installed separately which is simple thanks to their single exe binary for Windows and the integration in most Linux package management systems (```sudo apt-get install hledger``` should work, for instance).
+![tim hledger eval gif](gif/tim_hledger.gif)
+
+# differences to ti
 tim tries to simplify [ti](https://github.com/sharat87/ti) by relying on [hledger](http://hledger.org/) (which must be on your path) for number crunching.
 
 Biggest changes:
