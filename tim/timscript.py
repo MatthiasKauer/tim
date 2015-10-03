@@ -1,40 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-"""
-ti is a simple and extensible time tracker for the command line. Visit the
-project page (http://ti.sharats.me) for more details.
-
-Usage:
-  ti (o|on) <name> [<time>...]
-  ti (f|fin) [<time>...]
-  ti (s|status)
-  ti (t|tag) <tag>...
-  ti (n|note) <note-text>...
-  ti (l|log) [today]
-  ti (e|edit)
-  ti (i|interrupt)
-  ti --no-color
-  ti -h | --help
-
-Options:
-  -h --help         Show this help.
-  <start-time>...   A time specification (Go to http://ti.sharats.me for more on
-                    this).
-  <tag>...          Tags can be made of any characters, but its probably a good
-                    idea to avoid whitespace.
-  <note-text>...    Some arbitrary text to be added as `notes` to the currently
-                    working project.
-"""
-
 from __future__ import print_function
 from __future__ import unicode_literals
 
 import sys
 from datetime import datetime, timedelta, date
 from collections import defaultdict
-#  import re
-#  import os, subprocess, tempfile
 import os
 import subprocess
 import math
@@ -45,17 +17,18 @@ import json, yaml
 
 import pytz
 import parsedatetime
-import colorama as cr
-cr.init()
 # http://stackoverflow.com/questions/13218506/how-to-get-system-timezone-setting-and-pass-it-to-pytz-timezone
 from tzlocal import get_localzone # $ pip install tzlocal
 local_tz = get_localzone()
 
 from tim import __version__
+from tim.coloring import TimColorer
 
 date_format = '%Y-%m-%dT%H:%M:%SZ'
 
 class JsonStore(object):
+    """handles time log in json form"""
+
     def __init__(self):
         cfg_fname = os.path.abspath(os.path.expanduser('~/.tim.ini'))
         self.cfg = ConfigParser.SafeConfigParser() 
@@ -68,7 +41,7 @@ class JsonStore(object):
         print("#self.filename: %s" % (self.filename))
 
     def load(self):
-
+        """read from file"""
         if os.path.exists(self.filename):
             with open(self.filename) as f:
                 data = json.load(f)
@@ -79,40 +52,10 @@ class JsonStore(object):
         return data
 
     def dump(self, data):
+        """write data to file"""
         with open(self.filename, 'w') as f:
             json.dump(data, f, separators=(',', ': '), indent=2)
 
-
-def red(str):
-    if use_color:
-        return cr.Fore.RED + str + cr.Fore.RESET
-    else:
-        return str
-
-def green(str):
-    if use_color:
-        return cr.Fore.GREEN + str + cr.Fore.RESET
-    else: 
-        return str
-
-def yellow(str):
-    if use_color: 
-        return cr.Fore.YELLOW + str + cr.Fore.RESET
-    else:
-        return str
-
-def blue(str):
-    if use_color: 
-        return cr.Back.WHITE + cr.Fore.BLUE + str + cr.Fore.RESET + cr.Back.RESET
-    else:
-        return str
-
-def bold(str):
-#doesn't do much on my ConEmu Windows 7 system, but let's see
-    if use_color:
-        return cr.Style.BRIGHT + str + cr.Style.RESET_ALL
-    else:
-        return str
 
 def action_switch(name, time):
     action_end(time)
@@ -123,7 +66,7 @@ def action_begin(name, time):
     work = data['work']
 
     if work and 'end' not in work[-1]:
-        print('You are already working on ' + yellow(work[-1]['name']) +
+        print('You are already working on ' + tclr.yellow(work[-1]['name']) +
                 '. Stop it or use a different sheet.', file=sys.stderr)
         raise SystemExit(1)
 
@@ -135,7 +78,7 @@ def action_begin(name, time):
     work.append(entry)
     store.dump(data)
 
-    print('Start working on ' + green(name) + ' at ' + time + '.')
+    print('Start working on ' + tclr.green(name) + ' at ' + time + '.')
 
 def action_printtime(time):
     print("You entered '" + time + "' as a test")
@@ -151,7 +94,7 @@ def action_end(time, back_from_interrupt=True):
     start_time = parse_isotime(current['start'])
     # print(type(start_time), type(time))
     diff = timegap(start_time, parse_isotime(time))
-    print('You stopped working on ' + red(current['name']) + ' at ' + time + ' (total: ' + bold(diff) + ').')
+    print('You stopped working on ' + tcrl.red(current['name']) + ' at ' + time + ' (total: ' + tclr.bold(diff) + ').')
     store.dump(data)
 
 def action_status():
@@ -166,7 +109,7 @@ def action_status():
     diff = timegap(start_time, datetime.utcnow())
 
     print('You have been working on {0} for {1}.'
-            .format(green(current['name']), diff))
+            .format(tclr.green(current['name']), diff))
 
 def action_hledger(param):
     # print("hledger param", param)
@@ -261,11 +204,11 @@ def ensure_working():
     if work_data:
         last = work_data[-1]
         print("For all I know, you last worked on {} from {} to {}".format(
-                blue(last['name']), green(last['start']), red(last['end'])),
+                tclr.blue(last['name']), tclr.green(last['start']), tcrl.red(last['end'])),
                 file=sys.stderr)
         # print(data['work'][-1])
     else:
-        print("For all I know, you " + bold("never") + " worked on anything."
+        print("For all I know, you " + tclr.bold("never") + " worked on anything."
             " I don't know what to do.", file=sys.stderr)
 
     print('See `ti -h` to know how to start working.', file=sys.stderr)
@@ -338,7 +281,7 @@ def timegap(start_time, end_time):
     elif mins < 1439:
         return '%d hours and %d minutes' % (hours, rem_mins)
     else:
-        return "more than a day " + red("(%d hours)" %(hours))
+        return "more than a day " + tcrl.red("(%d hours)" %(hours))
     # elif mins < 43199:
     #     return 'about {} days'.format(mins / 1440)
     # elif mins < 86399:
@@ -452,7 +395,8 @@ def main():
 
 
 store = JsonStore()
-use_color = True
+tclr = TimColorer(use_color=True)
+# use_color = True
 
 if __name__ == '__main__':
     main()
