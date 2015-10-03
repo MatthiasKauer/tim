@@ -1,4 +1,5 @@
 (A) 2015-07-24 switch should be like begin if working on nothing (or add another syntax? or WARN more vehemently that nothing was done!)
+(A) 2015-10-03 organize command line interface in a way that outputs help automatically (argparse)
 (A) 2015-09-04 backups must include minute or even second (now they overwrite if fixing sth immediately)
 (A) 2015-07-21 remove sheet info from every command (output only w/ version?)
 (B) 2015-08-01 last status should also show duration
