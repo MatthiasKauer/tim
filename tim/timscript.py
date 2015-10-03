@@ -61,6 +61,7 @@ def action_switch(name, time):
     action_end(time)
     action_begin(name, time)
 
+
 def action_begin(name, time):
     data = store.load()
     work = data['work']
@@ -80,8 +81,10 @@ def action_begin(name, time):
 
     print('Start working on ' + tclr.green(name) + ' at ' + time + '.')
 
+
 def action_printtime(time):
     print("You entered '" + time + "' as a test")
+
 
 def action_end(time, back_from_interrupt=True):
     ensure_working()
@@ -97,6 +100,7 @@ def action_end(time, back_from_interrupt=True):
     print('You stopped working on ' + tcrl.red(current['name']) + ' at ' + time + ' (total: ' + tclr.bold(diff) + ').')
     store.dump(data)
 
+
 def action_status():
     ensure_working()
     # except SystemExit(1):
@@ -110,6 +114,7 @@ def action_status():
 
     print('You have been working on {0} for {1}.'
             .format(tclr.green(current['name']), diff))
+
 
 def action_hledger(param):
     # print("hledger param", param)
@@ -136,6 +141,7 @@ def action_hledger(param):
     print("tim executes: " + " ".join(cmd_list))
     subprocess.call(cmd_list) 
 
+
 def action_ini():
     out_str = StringIO.StringIO()
 
@@ -146,8 +152,10 @@ def action_ini():
 
     print(out_str.getvalue())
 
+
 def action_version():
     print("tim version " + __version__)
+
 
 def action_edit():
     editor_cfg = store.cfg.get('tim', 'editor')
@@ -166,32 +174,6 @@ def action_edit():
     print("You must delete those manually! Now begin editing!")
     subprocess.check_call(cmd + ' ' + store.filename, shell=True)
  
-#      data = store.load()
-#      yml = yaml.safe_dump(data, default_flow_style=False, allow_unicode=True)
-#  
-#      cmd = os.getenv('EDITOR')
-#      fd, temp_path = tempfile.mkstemp(prefix='ti.')
-#      with open(temp_path, "r+") as f:
-#          f.write(yml.replace('\n- ', '\n\n- '))
-#          f.seek(0)
-#          subprocess.check_call(cmd + ' ' + temp_path, shell=True)
-#          yml = f.read()
-#          f.truncate()
-#          f.close
-#  
-#      os.close(fd)
-#      os.remove(temp_path)
-#  
-#      try:
-#        data = yaml.load(yml)
-#      except:
-#        print("Oops, that YAML didn't appear to be valid!", file=sys.stderr)
-#        raise SystemExit(1)
-#  
-#      store.dump(data)
-#  
-
-# def is_working():
 
 def ensure_working():
     data = store.load()
@@ -221,6 +203,7 @@ def to_datetime(timestr):
     dt = parse_engtime(timestr).strftime(date_format)
     return dt
 
+
 def parse_engtime(timestr):
 #http://stackoverflow.com/questions/4615250/python-convert-relative-date-string-to-absolute-date-stamp
     cal = parsedatetime.Calendar()
@@ -232,10 +215,8 @@ def parse_engtime(timestr):
     ret_utc = ret.astimezone(pytz.utc)
     # ret = cal.parseDT(timestr, sourceTime=datetime.utcnow())[0]
     return ret_utc
-    # interim_result = cal.parse(timestr)
     
-    # return datetime.datetime(*interim_result[0][:6])
-    
+
 def parse_isotime(isotime):
     return datetime.strptime(isotime, date_format )
 
@@ -255,15 +236,7 @@ def timegap(start_time, end_time):
         return '%d hours and %d minutes' % (hours, rem_mins)
     else:
         return "more than a day " + tcrl.red("(%d hours)" %(hours))
-    # elif mins < 43199:
-    #     return 'about {} days'.format(mins / 1440)
-    # elif mins < 86399:
-    #     return 'about a month'
-    # elif mins < 525599:
-    #     return 'about {} months'.format(mins / 43200)
-    # else:
-    #     return 'more than a year'
-
+   
 
 def helpful_exit(msg=__doc__):
     print(msg, file=sys.stderr)
