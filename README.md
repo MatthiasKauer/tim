@@ -90,10 +90,10 @@ python version. I am not really missing them, so I might not add them. If anyone
 has any interesting use cases for it, I'm willing to consider.
 
 ## Who?
-
-Created and fed by Shrikant Sharat
-([@sharat87](https://twitter.com/#!sharat87)). To get in touch, ping me on
-twitter or <a href=mailto:shrikantsharat.k@gmail.com>email</a>.
+[ti](https://github.com/sharat87/ti) has been created by Shrikant Sharat
+([@sharat87](https://twitter.com/#!sharat87)).
+Adjustments in tim are by [Matthias Kauer](http://matthiaskauer.com/about).
+Feel free to open an issue to discuss the program or write an email for other enquiries.
 
 ## License
-[MIT License](http://mitl.sharats.me).
+MIT
