@@ -236,33 +236,6 @@ def parse_engtime(timestr):
     
     # return datetime.datetime(*interim_result[0][:6])
     
-def parse_engtime_old(timestr):
-    now = datetime.utcnow().replace(microsecond=0)
-    # print("now", now, now.tzinfo)
-    if not timestr or timestr.strip() == 'now':
-        return now
-
-    match = re.match(r'(\d+|a) \s* (s|secs?|seconds?) \s+ ago $', timestr, re.X)
-    if match is not None:
-        n = match.group(1)
-        seconds = 1 if n == 'a' else int(n)
-        return now - timedelta(seconds=seconds)
-
-    match = re.match(r'(\d+|a) \s* (mins?|minutes?) \s+ ago $', timestr, re.X)
-    if match is not None:
-        n = match.group(1)
-        minutes = 1 if n == 'a' else int(n)
-        return now - timedelta(minutes=minutes)
-
-    match = re.match(r'(\d+|a|an) \s* (hrs?|hours?) \s+ ago $', timestr, re.X)
-    if match is not None:
-        n = match.group(1)
-        hours = 1 if n in ['a', 'an'] else int(n)
-        return now - timedelta(hours=hours)
-
-    raise ValueError("Don't understand the time '" + timestr + "'")
-
-
 def parse_isotime(isotime):
     return datetime.strptime(isotime, date_format )
 
