@@ -1,6 +1,8 @@
 (A) 2015-07-24 switch should be like begin if working on nothing (or add another syntax? or WARN more vehemently that nothing was done!)
 (A) 2015-09-04 backups must include minute or even second (now they overwrite if fixing sth immediately)
 (A) 2015-07-21 remove sheet info from every command (output only w/ version?)
+(B) 2015-10-19 status (and maybe pt) should output local time along w/ UTC
+(B) 2015-10-19 print time should include hypothetical length of time; queue into status maybe
 (B) 2015-08-01 last status should also show duration
 (B) 2015-07-07 status should output when the last end was (if nothing is worked on currently)
 (B) 2015-07-07 Add stats command (informing me about DB size)
